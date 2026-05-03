@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MVRLJDGA.BusinessLogic\MVRLJDGA.BusinessLogic.csproj" />
+  </ItemGroup>
+
 </Project>
