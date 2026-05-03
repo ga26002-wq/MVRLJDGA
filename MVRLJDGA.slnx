@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="MVRLJDGA.BusinessLogic/MVRLJDGA.BusinessLogic.csproj" />
+  <Project Path="MVRLJDGA.DataAccess/MVRLJDGA.DataAccess.csproj" />
+  <Project Path="MVRLJDGA.Entities/MVRLJDGA.Entities.csproj" />
+  <Project Path="MVRLJDGA.WebApplication/MVRLJDGA.WebApplication.csproj" />
+</Solution>
