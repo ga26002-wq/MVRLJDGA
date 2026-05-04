@@ -21,8 +21,4 @@
     <ProjectReference Include="..\MVRLJDGA.Entities\MVRLJDGA.Entities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\" />
-  </ItemGroup>
-
 </Project>
