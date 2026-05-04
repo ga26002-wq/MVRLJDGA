@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MVRLJDGA.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace MVRLJDGA.DataAccess;
+namespace MVRLJDGA.DataAccess.Database;
 
 public partial class LibraryContext : DbContext
 {

@@ -29,8 +29,8 @@ namespace MVRLJDGA.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "varchar(60)", unicode: false, maxLength: 60, nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true)
+                    Title = table.Column<string>(type: "varchar(60)", unicode: false, maxLength: 60, nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,8 +45,8 @@ namespace MVRLJDGA.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PublisherId = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
-                    SalePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Stock = table.Column<int>(type: "int", nullable: true)
+                    SalePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Stock = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,7 +66,7 @@ namespace MVRLJDGA.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<int>(type: "int", nullable: false),
                     AccountName = table.Column<string>(type: "varchar(60)", unicode: false, maxLength: 60, nullable: false),
-                    AccessKey = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true)
+                    AccessKey = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false)
                 },
                 constraints: table =>
                 {
