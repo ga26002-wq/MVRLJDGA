@@ -30,3 +30,4 @@ namespace MVRLJDGA.BusinessLogic.DTOs
         public int Stock { get; set; }
     }
 }
+
