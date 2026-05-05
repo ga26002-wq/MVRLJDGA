@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using MVRLJDGA.BusinessLogic.DTOs;
 using MVRLJDGA.BusinessLogic.UseCases.Books.Commands.CreateBook;
 using MVRLJDGA.BusinessLogic.UseCases.Books.Queries.GetBooks;
+using System.Threading.Tasks;
 
 namespace MVRLJDGA.WebApplication.Controllers
 {
+    [Authorize]
     public class BookController : Controller
     {
         private readonly IMediator _mediator;
