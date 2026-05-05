@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using MVRLJDGA.BusinessLogic.DTOs;
 using MVRLJDGA.BusinessLogic.UseCases.Books.Commands.CreateBook;
+using MVRLJDGA.BusinessLogic.UseCases.Books.Commands.UpdateBook;
 using MVRLJDGA.BusinessLogic.UseCases.Books.Queries.GetBooks;
 using System.Threading.Tasks;
 
@@ -39,6 +40,29 @@ namespace MVRLJDGA.WebApplication.Controllers
             {
                 var command = new CreateBookCommand(bookDto);
                 await _mediator.Send(command);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(bookDto);
+        }
+       
+        public async Task<IActionResult> Edit(long id)
+        {
+            var books = await _mediator.Send(new GetBooksQuery());
+            var bookDto = books.FirstOrDefault(x => x.Id == id);
+
+            if (bookDto == null) return NotFound();
+
+            return View(bookDto);
+        }
+
+     
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(BookDto bookDto)
+        {
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new UpdateBookCommand(bookDto));
                 return RedirectToAction(nameof(Index));
             }
             return View(bookDto);
