@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <div class="card shadow-lg border-0 rounded">
+            <div class="card-header bg-dark text-white text-center py-3">
+                <h3 class="mb-0">📚 Sistema de Librería</h3>
+                <small class="text-muted text-white-50">Acceso Administrativo</small>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Login" method="post">
+                    @Html.AntiForgeryToken()
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Usuario</label>
+                        <input name="accountName" class="form-control" placeholder="Ingrese su usuario" required />
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Contraseña</label>
+                        <input type="password" name="accessKey" class="form-control" placeholder="••••••••" required />
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 py-2 mb-3">
+                        <i class="bi bi-box-arrow-in-right"></i> Ingresar al Sistema
+                    </button>
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger py-2 text-center" role="alert">
+                            @ViewBag.Error
+                        </div>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
