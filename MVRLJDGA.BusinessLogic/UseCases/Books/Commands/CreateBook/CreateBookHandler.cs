@@ -5,8 +5,8 @@ using MVRLJDGA.BusinessLogic.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading; // <--- ESTO FALTABA
-using System.Threading.Tasks; // <--- ESTO FALTABA
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MVRLJDGA.BusinessLogic.UseCases.Books.Commands.CreateBook
 {
@@ -23,10 +23,12 @@ namespace MVRLJDGA.BusinessLogic.UseCases.Books.Commands.CreateBook
         {
             var book = new Book
             {
-                PublisherId = request.BookDto.PublisherId,
+
                 Title = request.BookDto.Title,
                 SalePrice = request.BookDto.SalePrice,
-                Stock = request.BookDto.Stock
+                Stock = request.BookDto.Stock,
+                PublisherId = request.BookDto.PublisherId,
+                ImageUrl = request.BookDto.ImageUrl
             };
 
             var createdBook = await _bookRepository.AddAsync(book);

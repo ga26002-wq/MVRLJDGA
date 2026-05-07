@@ -41,20 +41,36 @@ namespace MVRLJDGA.WebApplication.Controllers
             return View();
         }
 
-      
+        [HttpPost] 
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BookDto bookDto)
+        public async Task<IActionResult> Create(BookDto bookDto, IFormFile? imageFile)
         {
+         
             ModelState.Remove("Id");
 
             if (ModelState.IsValid)
             {
+              
+                if (imageFile != null && imageFile.Length > 0)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+                    string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "books");
+                    string filePath = Path.Combine(uploadPath, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(stream);
+                    }
+
+                    bookDto.ImageUrl = "/images/books/" + fileName;
+                }
+               
                 var command = new CreateBookCommand(bookDto);
                 await _mediator.Send(command);
                 return RedirectToAction(nameof(Index));
             }
 
-   
+          
             var publishers = await _mediator.Send(new GetPublishersQuery());
             ViewBag.PublisherList = new SelectList(publishers, "Id", "PublisherName");
 

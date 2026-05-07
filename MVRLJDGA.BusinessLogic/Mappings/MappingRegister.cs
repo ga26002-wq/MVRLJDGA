@@ -8,8 +8,14 @@ namespace MVRLJDGA.BusinessLogic.Mappings
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<Book, BookDto>();
-            config.NewConfig<BookDto, Book>();
+          
+            config.NewConfig<Book, BookDto>()
+                .Map(dest => dest.ImageUrl, src => src.ImageUrl)
+                .Map(dest => dest.PublisherName, src => src.Publisher.PublisherName);
+
+         
+            config.NewConfig<BookDto, Book>()
+                .Map(dest => dest.ImageUrl, src => src.ImageUrl);
         }
     }
 }
