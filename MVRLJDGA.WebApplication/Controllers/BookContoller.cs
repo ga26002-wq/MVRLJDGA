@@ -7,6 +7,7 @@ using MVRLJDGA.BusinessLogic.UseCases.Books.Commands.CreateBook;
 using MVRLJDGA.BusinessLogic.UseCases.Books.Commands.UpdateBook;
 using MVRLJDGA.BusinessLogic.UseCases.Books.Queries.GetBooks;
 using MVRLJDGA.BusinessLogic.UseCases.Publishers.Queries;
+using MVRLJDGA.BusinessLogic.UseCases.Books.Commands.DeleteBook;
 using System.Threading.Tasks;
 
 
@@ -79,6 +80,19 @@ namespace MVRLJDGA.WebApplication.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(bookDto);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(long id)
+        {
+            var result = await _mediator.Send(new DeleteBookCommand(id));
+
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
