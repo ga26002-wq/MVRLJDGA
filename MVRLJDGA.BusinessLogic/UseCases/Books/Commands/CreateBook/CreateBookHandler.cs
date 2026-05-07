@@ -5,6 +5,8 @@ using MVRLJDGA.BusinessLogic.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading; // <--- ESTO FALTABA
+using System.Threading.Tasks; // <--- ESTO FALTABA
 
 namespace MVRLJDGA.BusinessLogic.UseCases.Books.Commands.CreateBook
 {
@@ -28,7 +30,8 @@ namespace MVRLJDGA.BusinessLogic.UseCases.Books.Commands.CreateBook
             };
 
             var createdBook = await _bookRepository.AddAsync(book);
+
             return createdBook.Id;
         }
     }
-}
+  }

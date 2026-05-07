@@ -1,12 +1,15 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MVRLJDGA.BusinessLogic.DTOs;
 using MVRLJDGA.BusinessLogic.UseCases.Books.Commands.CreateBook;
 using MVRLJDGA.BusinessLogic.UseCases.Books.Commands.UpdateBook;
 using MVRLJDGA.BusinessLogic.UseCases.Books.Queries.GetBooks;
+using MVRLJDGA.BusinessLogic.UseCases.Publishers.Queries;
 using System.Threading.Tasks;
+
+
 
 namespace MVRLJDGA.WebApplication.Controllers
 {
@@ -27,24 +30,34 @@ namespace MVRLJDGA.WebApplication.Controllers
             return View(model);
         }
 
-        public IActionResult Create()
+        [HttpGet]
+        public async Task<IActionResult> Create()
         {
+            var publishers = await _mediator.Send(new GetPublishersQuery());
+            ViewBag.PublisherList = new SelectList(publishers, "Id", "PublisherName");
             return View();
         }
 
-        [HttpPost]
+      
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BookDto bookDto)
         {
+            ModelState.Remove("Id");
+
             if (ModelState.IsValid)
             {
                 var command = new CreateBookCommand(bookDto);
                 await _mediator.Send(command);
                 return RedirectToAction(nameof(Index));
             }
+
+   
+            var publishers = await _mediator.Send(new GetPublishersQuery());
+            ViewBag.PublisherList = new SelectList(publishers, "Id", "PublisherName");
+
             return View(bookDto);
         }
-       
+
         public async Task<IActionResult> Edit(long id)
         {
             var books = await _mediator.Send(new GetBooksQuery());
