@@ -104,19 +104,31 @@ namespace MVRLJDGA.WebApplication.Controllers
             return View(bookDto);
         }
 
-     
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(BookDto bookDto)
+        public async Task<IActionResult> Edit(int id, BookDto bookDto, IFormFile? ImageFile)
         {
+            if (id != bookDto.Id) return NotFound();
+
             if (ModelState.IsValid)
             {
+                var bookOriginal = await _mediator.Send(new GetBookByIdQuery(id));
+
+                if (ImageFile == null || ImageFile.Length == 0)
+                {
+   
+                    bookDto.ImageUrl = bookOriginal.ImageUrl;
+                }
+                else
+                {
+                }
+
                 await _mediator.Send(new UpdateBookCommand(bookDto));
                 return RedirectToAction(nameof(Index));
             }
             return View(bookDto);
         }
-      
         [HttpGet]
         public async Task<IActionResult> Delete(long id)
         {

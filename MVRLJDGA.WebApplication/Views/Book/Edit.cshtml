@@ -4,16 +4,17 @@
     ViewData["Title"] = "Editar Libro";
 }
 
-
 <div class="container mt-4">
     <h2 class="text-primary">Editar Libro</h2>
     <hr />
     <div class="row">
         <div class="col-md-6">
-            <form asp-action="Edit">
+            <form asp-action="Edit" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 
                 <input type="hidden" asp-for="Id" />
+
+                <input type="hidden" asp-for="ImageUrl" />
 
                 <div class="form-group mb-3">
                     <label asp-for="Title" class="control-label fw-bold"></label>
@@ -39,7 +40,23 @@
                     <span asp-validation-for="Stock" class="text-danger"></span>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mb-3">
+                    <label class="control-label fw-bold">Imagen de Portada</label>
+                    <div class="input-group">
+                        <input type="file" name="ImageFile" class="form-control" id="inputImage" accept="image/*">
+                        <button class="btn btn-danger" type="button" onclick="document.getElementById('inputImage').value = ''">Quitar</button>
+                    </div>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <div class="mb-3">
+                        <p class="small text-muted">Portada actual:</p>
+                        <img src="@Model.ImageUrl" style="width: 80px; height: 110px; object-fit: cover;" class="img-thumbnail shadow-sm" />
+                    </div>
+                }
+
+                <div class="form-group mt-4">
                     <input type="submit" value="Guardar Cambios" class="btn btn-warning" />
                     <a asp-action="Index" class="btn btn-secondary">Regresar</a>
                 </div>
@@ -53,5 +70,3 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-
-
