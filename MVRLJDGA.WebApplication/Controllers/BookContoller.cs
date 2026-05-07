@@ -26,23 +26,26 @@ namespace MVRLJDGA.WebApplication.Controllers
             _mediator = mediator;
         }
 
-        public async Task<IActionResult> Index(string searchTerm, string genreFilter)
+        public async Task<IActionResult> Index(string searchTerm, int? genreFilter)
         {
-          
-            var publishers = await _mediator.Send(new GetPublishersQuery());
-            ViewBag.Genres = new SelectList(publishers, "Id", "PublisherName");
 
-        
+            var publishers = await _mediator.Send(new GetPublishersQuery());
+            ViewBag.Genres = new SelectList(publishers, "Id", "PublisherName", genreFilter);
+
             ViewData["CurrentFilter"] = searchTerm;
 
-       
             var query = new GetBooksQuery();
             var model = await _mediator.Send(query);
 
-         
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 model = model.Where(b => b.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            if (genreFilter.HasValue)
+            {
+                
+                model = model.Where(b => b.PublisherId == genreFilter.Value).ToList();
             }
 
             return View(model);
