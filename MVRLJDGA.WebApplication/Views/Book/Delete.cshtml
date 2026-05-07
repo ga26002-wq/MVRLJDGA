@@ -1,0 +1,31 @@
+﻿@model MVRLJDGA.BusinessLogic.DTOs.BookDto
+
+@{
+    ViewData["Title"] = "Eliminar Libro";
+}
+
+<div class="container mt-4">
+    <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+            <h4>¿Estás seguro de eliminar este libro?</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Título:</dt>
+                <dd class="col-sm-9">@Model.Title</dd>
+
+                <dt class="col-sm-3">Precio de Venta:</dt>
+                <dd class="col-sm-9">@Model.SalePrice</dd>
+
+                <dt class="col-sm-3">Stock:</dt>
+                <dd class="col-sm-9">@Model.Stock</dd>
+            </dl>
+
+            <form asp-action="DeleteConfirmed" method="post">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
