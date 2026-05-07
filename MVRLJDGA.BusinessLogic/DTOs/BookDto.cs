@@ -16,8 +16,6 @@ namespace MVRLJDGA.BusinessLogic.DTOs
         [StringLength(255, ErrorMessage = "El título es demasiado largo.")]
         [Display(Name = "Título")]
       
-        public string Title { get; set; } = string.Empty;
-
         [Required(ErrorMessage = "El precio es obligatorio.")]
         [Range(0.01, 999999.99, ErrorMessage = "El precio debe ser mayor a 0.")]
         [Display(Name = "Precio de Venta")]
