@@ -1,0 +1,55 @@
+﻿@model IEnumerable<MVRLJDGA.BusinessLogic.DTOs.UserDto>
+
+@{
+    ViewData["Title"] = "Gestión de Usuarios";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary fw-bold">Gestión de Usuarios</h2>
+        <a asp-action="Create" class="btn btn-success px-4">
+            <i class="bi bi-person-plus"></i> Crear Nuevo Usuario
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover table-striped mb-0 align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4">Nombre de Cuenta</th>
+                        <th>Rol Asignado</th>
+                        <th class="text-center" style="width: 25%;">Estado / Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center text-muted py-4">No se han registrado usuarios en el sistema.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4 fw-bold text-dark">
+                                    <i class="bi bi-person-circle me-2"></i> @item.AccountName
+                                </td>
+                                <td>
+                                    <span class="badge bg-info text-dark px-3 py-2 fw-bold">
+                                        @(string.IsNullOrEmpty(item.RoleTitle) ? $"Rol ID: {item.RoleId}" : item.RoleTitle)
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge bg-secondary px-3 py-2">Módulo Lectura</span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
