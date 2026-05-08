@@ -16,6 +16,11 @@ namespace MVRLJDGA.BusinessLogic.Mappings
          
             config.NewConfig<BookDto, Book>()
                 .Map(dest => dest.ImageUrl, src => src.ImageUrl);
+
+            config.NewConfig<User, UserDto>()
+                .Map(dest => dest.RoleTitle, src => src.Role != null ? src.Role.Title : string.Empty);
+
+            config.NewConfig<UserDto, User>();
         }
     }
 }
