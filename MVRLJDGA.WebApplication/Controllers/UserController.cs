@@ -56,5 +56,82 @@ namespace MVRLJDGA.WebApplication.Controllers
             ViewBag.Roles = new SelectList(roles, "Id", "Title", userDto.RoleId);
             return View(userDto);
         }
+      
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userRepository.GetByIdAsync(id.Value);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var userDto = user.Adapt<UserDto>();
+
+            var roles = await _roleRepository.ListAsync();
+            ViewBag.Roles = new SelectList(roles, "Id", "Title", userDto.RoleId);
+
+            return View(userDto);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, UserDto userDto)
+        {
+            if (id != userDto.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                var user = userDto.Adapt<User>();
+                await _userRepository.UpdateAsync(user);
+                return RedirectToAction(nameof(Index));
+            }
+
+            var roles = await _roleRepository.ListAsync();
+            ViewBag.Roles = new SelectList(roles, "Id", "Title", userDto.RoleId);
+            return View(userDto);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+           
+            var user = await _userRepository.GetByIdAsync(id.Value);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+           
+            var userDto = user.Adapt<UserDto>();
+            return View(userDto);
+        }
+
+       
+        [HttpPost, ActionName("DeleteConfirmed")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+            if (user != null)
+            {
+               
+                await _userRepository.DeleteAsync(user);
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

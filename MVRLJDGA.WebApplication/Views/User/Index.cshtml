@@ -19,7 +19,7 @@
                     <tr>
                         <th class="ps-4">Nombre de Cuenta</th>
                         <th>Rol Asignado</th>
-                        <th class="text-center" style="width: 25%;">Estado / Acciones</th>
+                        <th class="text-center" style="width: 25%;">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,7 +43,15 @@
                                     </span>
                                 </td>
                                 <td class="text-center">
-                                    <span class="badge bg-secondary px-3 py-2">Módulo Lectura</span>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm fw-bold text-dark px-3">
+                                            Editar
+                                        </a>
+
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm fw-bold px-3">
+                                            Eliminar
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         }
