@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using MVRLJDGA.DataAccess.Interfaces;
-using MVRLJDGA.Entities; // Usamos tus entidades reales
+using MVRLJDGA.Entities; 
 using System;
 using System.Collections.Generic;
 using System.Threading;
