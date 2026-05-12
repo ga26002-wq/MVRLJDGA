@@ -27,13 +27,9 @@ namespace MVRLJDGA.BusinessLogic.DTOs
         [Display(Name = "Stock")]
         public int Stock { get; set; }
 
-     
         [Display(Name = "URL de Portada")]
         public string? ImageUrl { get; set; }
 
-     
         public string? PublisherName { get; set; }
     }
 }
-
-
