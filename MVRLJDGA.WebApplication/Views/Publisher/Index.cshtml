@@ -1,14 +1,17 @@
 ﻿@model IEnumerable<MVRLJDGA.BusinessLogic.DTOs.PublisherDto>
 
 @{
-    ViewData["Title"] = "Gestión de Editoriales";
+    ViewData["Title"] = "Historial de Publicaciones";
 }
 
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="text-primary fw-bold">Gestión de Editoriales</h2>
-        <a asp-action="Create" class="btn btn-success px-4">
-            <i class="bi bi-plus-circle"></i> Añadir Nueva Editorial
+        <div>
+            <h2 class="text-primary fw-bold mb-0">Historial de Publicaciones</h2>
+            <p class="text-muted small">Módulo de control de registros de la base de datos (Publishers)</p>
+        </div>
+        <a asp-action="Create" class="btn btn-success px-4 fw-bold rounded-pill">
+            <i class="bi bi-plus-circle"></i> Registrar Publicación
         </a>
     </div>
     
@@ -17,8 +20,8 @@
             <table class="table table-hover table-striped mb-0 align-middle">
                 <thead class="table-dark">
                     <tr>
-                        <th class="ps-4" style="width: 15%;">Código ID</th>
-                        <th>Nombre de la Editorial</th>
+                        <th class="ps-4" style="width: 15%;">Código Pub</th>
+                        <th>Detalle / Nombre de la Publicación</th>
                         <th class="text-center" style="width: 25%;">Acciones</th>
                     </tr>
                 </thead>
@@ -26,7 +29,7 @@
                     @if (!Model.Any())
                     {
                         <tr>
-                            <td colspan="3" class="text-center text-muted py-4">No se encontraron editoriales registradas.</td>
+                            <td colspan="3" class="text-center text-muted py-4">No se encontraron publicaciones registradas en el sistema.</td>
                         </tr>
                     }
                     else
@@ -35,9 +38,16 @@
                         {
                             <tr>
                                 <td class="ps-4 fw-bold text-secondary">#@item.Id</td>
-                                <td class="fw-semibold">@item.PublisherName</td>
+                                <td class="fw-semibold text-dark">@item.PublisherName</td>
                                 <td class="text-center">
-                                    <span class="badge bg-secondary px-3 py-2">Módulo Lectura</span>
+                                    <div class="d-inline-flex gap-2">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm fw-bold px-3 text-dark rounded-pill">
+                                            Editar
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm fw-bold px-3 rounded-pill">
+                                            Eliminar
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         }

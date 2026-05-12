@@ -25,6 +25,8 @@ namespace MVRLJDGA.BusinessLogic.UseCases.Books.Commands.UpdateBook
           
             request.BookDto.Adapt(book);
 
+            book.PublisherId = request.BookDto.PublisherId;
+
             await _bookRepository.UpdateAsync(book);
             return true;
         }

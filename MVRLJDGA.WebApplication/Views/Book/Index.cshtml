@@ -45,6 +45,7 @@
                         <th>Título</th>
                         <th>Precio Venta</th>
                         <th>Stock</th>
+                        <th>Editorial</th>
                         <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
@@ -52,7 +53,7 @@
                     @if (!Model.Any())
                     {
                         <tr>
-                            <td colspan="5" class="text-center py-4 text-muted">
+                            <td colspan="6" class="text-center py-4 text-muted">
                                 <i class="bi bi-info-circle"></i> No se encontraron libros con esos criterios.
                             </td>
                         </tr>
@@ -88,6 +89,12 @@
                                 }
                             </td>
                           
+                            <td>
+                                <span class="badge bg-secondary px-2 py-2 fs-6">
+                                    <i class="bi bi-building"></i> @(string.IsNullOrEmpty(item.PublisherName) ? "Sin Editorial" : item.PublisherName)
+                                </span>
+                            </td>
+
                             <td class="text-center">
                                 <div class="d-flex justify-content-center gap-2">
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm shadow-sm">

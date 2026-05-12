@@ -1,0 +1,37 @@
+﻿@model MVRLJDGA.BusinessLogic.DTOs.PublisherDto
+
+@{
+    ViewData["Title"] = "Eliminar Editorial";
+}
+
+<div class="container mt-4">
+    <div class="card border-danger shadow-sm col-md-8 mx-auto">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0 fw-bold"><i class="bi bi-exclamation-triangle-fill"></i> ¿Estás seguro de eliminar esta editorial?</h4>
+        </div>
+        <div class="card-body py-4">
+            <div class="row mb-3">
+                <div class="col-sm-4 fw-bold text-muted">Código ID:</div>
+                <div class="col-sm-8 text-dark fw-bold">#@Model.Id</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 fw-bold text-muted">Nombre de la Editorial:</div>
+                <div class="col-sm-8 text-dark fw-bold">@Model.PublisherName</div>
+            </div>
+
+            <div class="alert alert-warning mt-3" role="alert">
+                <i class="bi bi-info-circle-fill"></i> <strong>Atención:</strong> Asegúrate de que no tenga libros asociados para evitar errores de integridad.
+            </div>
+
+            <form asp-action="DeleteConfirmed" method="post" class="mt-4">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" name="id" />
+                
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-danger px-4">Confirmar Eliminación</button>
+                    <a asp-action="Index" class="btn btn-secondary px-4">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

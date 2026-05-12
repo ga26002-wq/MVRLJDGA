@@ -101,9 +101,11 @@ namespace MVRLJDGA.WebApplication.Controllers
 
             if (bookDto == null) return NotFound();
 
+            var publishers = await _mediator.Send(new GetPublishersQuery());
+            ViewBag.PublisherList = new SelectList(publishers, "Id", "PublisherName", bookDto.PublisherId);
+
             return View(bookDto);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

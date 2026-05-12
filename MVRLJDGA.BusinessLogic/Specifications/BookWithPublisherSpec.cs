@@ -1,0 +1,48 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using MVRLJDGA.Entities;
+
+namespace MVRLJDGA.BusinessLogic.Specifications
+{
+    
+    public interface ISpecification<T>
+    {
+        Expression<Func<T, bool>> Criteria { get; }
+        List<Expression<Func<T, object>>> Includes { get; }
+    }
+
+    
+    public class BaseSpecification<T> : ISpecification<T>
+    {
+        public Expression<Func<T, bool>> Criteria { get; }
+        public List<Expression<Func<T, object>>> Includes { get; } = new List<Expression<Func<T, object>>>();
+
+        public BaseSpecification() { }
+
+        public BaseSpecification(Expression<Func<T, bool>> criteria)
+        {
+            Criteria = criteria;
+        }
+
+        protected void AddInclude(Expression<Func<T, object>> includeExpression)
+        {
+            Includes.Add(includeExpression);
+        }
+    }
+
+
+    public class BookWithPublisherSpec : BaseSpecification<Book>
+    {
+        public BookWithPublisherSpec()
+        {
+            AddInclude(b => b.Publisher);
+        }
+
+        public BookWithPublisherSpec(long id) : base(b => b.Id == id)
+        {
+            AddInclude(b => b.Publisher);
+        }
+    }
+}
